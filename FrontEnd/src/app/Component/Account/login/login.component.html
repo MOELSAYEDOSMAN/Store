@@ -1,0 +1,37 @@
+<div class="MobileView"></div>
+<div class="m-3 text-center">
+  <img src="favicon.png" height="64px" width="64px">
+</div>
+<section class="container">
+  <form [formGroup]="loginForm" (submit)="submit()">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address Or UserName</label>
+      <input formControlName="Email" [class.is-valid]="Email?.valid" [class.is-invalid]="!Email?.valid && !Email?.untouched" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <div class="alert alert-danger text-center" [hidden]="Email?.valid||Email?.untouched">
+      <small id="emailHelp" class="form-text text-muted ">{{Email?.errors?.["required"]?"Email Is Reqired":""}}</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input formControlName="Password" [class.is-valid]="Password?.valid" [class.is-invalid]="!Password?.valid&& !Password?.untouched" [min]="8" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <div class="alert alert-danger text-center" [hidden]="Password?.valid||Password?.untouched">
+        <small id="PasswordHelp" class="form-text text-muted ">{{Password?.errors?.["required"]?"Password Is Reqired":""}}</small><hr>
+        <small id="PasswordHelp"  class="form-text text-muted " > {{Password?.errors?.["pattern"]?"Password Is Not Valid":""}} </small>
+      </div>
+    </div>
+
+    <div class="alert alert-danger m-2" [class.d-none]="Result.error==false"  role="alert">
+      {{Result.message}}
+    </div>
+    <div class="text-center m-3 d-block">
+    <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Login</button>
+    <br>
+    <div [hidden]="!loggindBol" class="spinner-border text-warning text-center" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+  </form>
+</section>
+
+

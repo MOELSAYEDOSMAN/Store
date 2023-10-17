@@ -1,0 +1,109 @@
+<div
+  class="modal fade"
+  id="ProductShow"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div>
+        <div style="background-color: #ffb100" class="modal-header">
+          <h5 class="modal-title">{{ Prod?.name }}</h5>
+          <button
+            type="button"
+            class="close btn btn-danger"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div
+            *ngFor="let img of Prod?.productImages"
+            [class.active]="Prod?.icon == img.src"
+            class="carousel-item"
+          >
+            <img src="{{ img.src }}" height="480px" width="480px" class="d-block w-100" alt="..." />
+          </div>
+        </div>
+        <a
+          class="carousel-control-prev"
+          href="#carouselExampleIndicators"
+          role="button"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only"> prev </span>
+        </a>
+        <a
+          class="carousel-control-next"
+          href="#carouselExampleIndicators"
+          role="button"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">next</span>
+        </a>
+      </div>
+      <table class="table w-100">
+        <tbody>
+          <tr>
+            <th scope="row">Name:</th>
+            <td>
+              <h5>{{ Prod?.name }}</h5>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">Category:</th>
+            <td
+              style="
+                display: inline-flex;
+                width: -webkit-fill-available;
+                align-items: center;
+              "
+            >
+              {{ Prod?.category?.name }}
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">Description:</th>
+            <td>
+              <textarea
+                disabled
+                class="inputprder form-control"
+                [value]="Prod?.description"
+                cols="14"
+                rows="8"
+              ></textarea>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">price:</th>
+            <td>
+              <h5>{{ Prod?.price }} L.E</h5>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="display: grid">
+        <div style="display: inline-flex;padding: 8px;">
+          <p style="font-size: large;">Count minOrder Start({{Prod?.minimumQuantity}})</p>
+          <input type="number" min="{{Prod?.minimumQuantity}}" class="form-control ordInput" [(ngModel)]="Estock" [class.is-invalid]="Estock<stock||Estock<0" #Stock>
+        </div>
+        <button [disabled]="!Estock||!IsloginCk||Estock<stock"  class="btn btn-success" (click)="order()">{{IsloginCk?'Order':'Must Login First'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+.cardGroup{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4%;
+}
+.Card{
+  text-decoration: auto;
+  border: 3px solid #ffb100;
+  margin: 2%;
+  padding: 2%;
+  text-align: center;
+  width: 25%;
+}
+.Card img{
+
+  height: 144px;
+  width: 144px;
+}
+.Card .TextCard
+{
+  text-align: start;
+  padding: 5%;
+}
+.Card .TextCard h3{
+  color: #ffb100;
+}
+.Card .TextCard h5{
+  color: grey;
+}
+
+
+
+@media only screen and (max-width:768px) {
+  .MarginMobile{
+    padding-top: 0%;
+  }
+  .cardGroup{
+    justify-content: center;
+    justify-items: center;
+  }
+  .Card{
+    height: fit-content;
+   width: 100%;
+  }
+}

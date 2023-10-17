@@ -1,0 +1,28 @@
+<div class="MobileView"></div>
+<div class="container">
+  <h1>Add Category</h1>
+
+  <div class="mb-3">
+    <form [formGroup]="CategoryForm" (submit)="submit()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input formControlName="name" [class.is-valid]="name?.valid" [class.is-invalid]="!name?.valid && !name?.untouched" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <div class="alert alert-danger text-center" [hidden]="name?.valid||name?.untouched">
+        <small id="emailHelp" class="form-text text-muted ">{{name?.errors?.["required"]?"Email Is Reqired":""}}</small>
+        </div>
+      </div>
+
+      <div class="alert alert-danger m-2" [class.d-none]="input.save"  role="alert">
+        {{input.message}}
+      </div>
+
+      <div class="text-center m-3 d-block">
+        <button [disabled]="CategoryForm.invalid" type="submit" class="btn btn-primary">Add</button>
+        <br>
+        <div [hidden]="!Islooding" class="spinner-border text-warning text-center" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+  </form>
+  </div>
+</div>

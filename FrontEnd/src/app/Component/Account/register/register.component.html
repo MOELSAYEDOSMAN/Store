@@ -1,0 +1,80 @@
+<div class="MobileView"></div>
+<div class="m-3 text-center">
+  <img src="favicon.png" height="64px" width="64px">
+</div>
+
+<section class="container">
+  <form [formGroup]="RegisterFrm" (submit)="submit()">
+    <div class="row m-1">
+
+
+      <div class="form-group m-2">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">User Name</label>
+        <div class="col-sm-10">
+        <input formControlName="userName" [class.is-valid]="UserName?.valid" [class.is-invalid]="!UserName?.valid&&!UserName?.untouched" type="text" class="form-control" placeholder="User Name">
+        <div [hidden]="UserName?.untouched||UserName?.valid" class="alert alert-danger text-center m-1">
+          <small id="emailHelp" class="form-text text-muted ">{{UserName?.errors?.['required']}}</small>
+        </div>
+      </div>
+      </div>
+
+
+      <div class="form-group m-2">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input formControlName="email" [class.is-valid]="Email?.valid" [class.is-invalid]="!Email?.valid&&!Email?.untouched" type="email" class="form-control" placeholder="Email">
+          <div [hidden]="Email?.untouched||Email?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{Password?.errors?.['required']?"Reqired ":""}}</small>
+            <small id="emailHelp" class="form-text text-muted ">{{Email?.errors?.['email']?"Must Enter Email":""}}</small>
+            </div>
+        </div>
+      </div>
+
+
+      <div class="form-group m-2">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input formControlName="password" [class.is-valid]="Password?.valid" [class.is-invalid]="!Password?.valid&&!Password?.untouched" type="password" class="form-control" placeholder="Password">
+          <div [hidden]="Password?.untouched||Password?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{Password?.errors?.['required']?"Reqired ":""}}</small>
+            <small id="emailHelp" class="form-text text-muted ">{{Password?.errors?.['pattern']?"([a-z],[A-Z],[@#$!])":""}}</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group m-2">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">R-Password</label>
+        <div class="col-sm-10">
+          <input formControlName="re_Password" type="password" [class.is-invalid]="re_Password!=null"  [class.is-valid]="re_Password==null&&Password?.value" class="form-control" name="inputName" id="inputName" placeholder="R-Password">
+
+        <div [hidden]="re_Password==null" class="alert alert-danger text-center m-1">
+          <small id="emailHelp" class="form-text text-muted ">Must R-Password Equal Password</small>
+        </div>
+      </div>
+      </div>
+
+      <div class="form-group m-2">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">phone</label>
+        <div class="col-sm-10">
+          <input formControlName="phone" [class.is-valid]="Phone?.valid" [class.is-invalid]="!Phone?.valid&&!Phone?.untouched" type="text" class="form-control" placeholder="Phone">
+          <div [hidden]="Phone?.untouched||Phone?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{Phone?.errors?.['required']?"Reqired ":""}}</small>
+            <small id="emailHelp" class="form-text text-muted ">{{Phone?.errors?.['pattern']?"Must 11 Number 01 (0/1/5/2)":""}}</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-danger m-2" [hidden]="!Result.error"  role="alert">
+        {{Result.message}}
+      </div>
+    </div>
+      <div class="text-center m-3 d-block">
+        <button [disabled]="RegisterFrm.invalid" type="submit" class="btn btn-primary">Register</button>
+        <br>
+        <div [hidden]="!loggindBol" class="spinner-border text-warning text-center" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+
+  </form>
+</section>

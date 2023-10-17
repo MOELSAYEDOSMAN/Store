@@ -1,0 +1,43 @@
+<div class="MobileView"></div>
+<div class="filterDiv">
+
+<input type="search" placeholder="Serch Product" (input)="serchProduct(serch.value)" #serch class="form-control m-2">
+<select (click)="getProdyctsByType(type.value)" #type class="form-control m-2">
+  <option value="-1">All</option>
+  <option *ngFor="let item of lscatogry" value="{{item.name}}">{{item.name}}</option>
+</select>
+</div>
+<div>
+  <div [class.d-none]="!LodingBage" class="text-center m-3 d-block">
+    <div  class="spinner-border text-warning text-center" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+<div class="cardGroup" [class.d-none]="LodingBage">
+  <div class="Card" data-bs-toggle="modal" data-bs-target="#ProductShow"  *ngFor="let item of lsProduct.products"  >
+    <img (click)="getproduct(item.productId)"  data-bs-toggle="modal" data-bs-target="#ProductShow" class="Img-Card" src="{{item.icon}}">
+    <div (click)="getproduct(item.productId)"  data-bs-toggle="modal" data-bs-target="#ProductShow" class="CardInfo">
+      <h4 class="club">{{item.category.name}}</h4>
+      <h5 class="CardTitle">{{item.name}}</h5>
+      <h5 class="CardPrice">{{item.price}}</h5>
+    </div>
+  </div>
+
+<ng-container *ngIf="prod">
+ <app-filter-product [Prod]="prod"></app-filter-product>
+</ng-container>
+
+  <div class="w-100 p-2" [hidden]="lsProduct.products.length!=0">
+    <div class="alert alert-danger text-center m-3 w-100" role="alert">
+      No Products
+    </div>
+  </div>
+</div>
+<div class="d-flex text-center w-100" style="justify-content: center;">
+  <nav  aria-label="...">
+    <ul style="place-content: center;" class="pagination pagination-lg">
+      <li *ngFor="let item of numberPageProduct" [class.active]="item==numberPage" [class.disabled]="item==numberPage" class="page-item"><button type="button" (click)="GetProductIndex(item)"   class="page-link" >{{item+1}}</button></li>
+    </ul>
+  </nav>
+</div>
+</div>

@@ -1,0 +1,72 @@
+<div class="MobileView"></div>
+  <div class=" m-2 p-2 d-block">
+    <a name="" id="" class="btn btn-primary m-2" routerLink="/Admin/Product/AddProduct" role="button">Add Product</a>
+    <br><input type="search"class="form-control " placeholder="Enter Name Product" #serch (input)="Search(serch.value)" />
+  </div>
+
+  <div class="text-center" [class.d-none]="!Lodding">
+    <div class="spinner-border text-warning text-center" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+
+  <div [class.d-none]="Lodding">
+    <div class="table-responsive" [class.d-none]="lsProduct.products.length==0">
+      <table class="table table-striped table-dark">
+        <thead class="thead-dark" >
+          <tr >
+            <th scope="col">Name</th>
+            <th scope="col">minimum Quantity</th>
+            <th scope="col">min</th>
+            <th scope="col">Price</th>
+            <th scope="col">Img</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delte</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of lsProduct.products;let i=index">
+            <th scope="row"><p style="width: max-content;">{{p.name}}</p></th>
+            <td>{{p.minimumQuantity}}</td>
+            <td>{{p.discount_Rate}}%</td>
+            <td>{{p.price}}L.E</td>
+            <td>
+              <img src="{{p.icon}}" height="144px" width="144px">
+            </td>
+            <td><a routerLink="/Admin/Product/EditProduct/{{p.productId}}" class="btn btn-warning">Edit</a></td>
+            <td><button type="button" (click)="delteSetData(i,p.productId)" data-bs-toggle="modal" data-bs-target="#Deltemodel"  class="btn btn-danger">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="modal fade" id="Deltemodel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Prodct</h5>
+              <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are You Sure?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" (click)="Delte()" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    <div [class.d-none]="lsProduct.products.length==0">
+      <ul style="place-content: center;" class="pagination pagination-lg">
+        <li *ngFor="let item of numberPageProduct" [class.active]="item==numberPage" [class.disabled]="item==numberPage" class="page-item"><button type="button" (click)="GetProductIndex(item)"   class="page-link" >{{item+1}}</button></li>
+      </ul>
+    </div>
+    <div class="alert alert-danger" [class.d-none]="lsProduct.products.length!=0" role="alert">
+      No Data
+    </div>
+  </div>
+

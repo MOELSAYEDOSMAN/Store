@@ -1,0 +1,54 @@
+<div class="MobileView"></div>
+
+<div  class="headerlove">
+  <h1>Order Page</h1>
+</div>
+
+
+<div [class.d-none]="order.length!=0" class="text-center w-100 alert alert-danger">
+  <h1>No Product In Cart</h1>
+</div>
+
+<div [class.d-none]="order.length==0">
+  <div class="table-responsive">
+    <table class="table table-striped table-dark">
+      <thead class="thead-dark" >
+        <tr >
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Count</th>
+          <th scope="col">Price</th>
+          <th scope="col">Before Discount</th>
+          <th scope="col">Discount</th>
+          <th scope="col">After Discount</th>
+          <th scope="col">Delte</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let p of order;let i=index">
+          <th scope="row">{{i+1}}</th>
+          <td><p style="width: max-content;">{{p.product.name}}</p></td>
+          <td>
+            <img src="{{p.product.icon}}" height="144px" width="144px">
+          </td>
+          <td>{{p.count}}</td>
+          <td>{{p.product.price}}L.E</td>
+          <td>{{p.product.price*p.count}}L.E</td>
+          <td>{{p.product.price*(p.product.discount_Rate/100)}}L.E</td>
+          <td>{{(p.product.price*p.count)-(p.product.price*(p.product.discount_Rate/100))}}L.E</td>
+          <td><button type="button" (click)="deleteProduct(i)" data-bs-toggle="modal" data-bs-target="#Deltemodel"  class="btn btn-danger">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Totla Price (Before Discount)={{totalPriceBefore}}</h3>
+    <h3>Total Discount={{TotalDiscaount}}</h3>
+    <h3>Totla Price (After Discount)={{totalPriceAfter}}</h3>
+
+    <div class="d-grid gap-2 text-center">
+      <button class="btn btn-primary" (click)="orderClick()">Order</button>
+    </div>
+
+</div>

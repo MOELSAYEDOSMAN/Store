@@ -1,0 +1,100 @@
+<div class="MobileView"></div>
+<div class="m-3 text-center">
+  <img src="favicon.png" height="64px" width="64px"/>
+  <section class="container">
+    <form [formGroup]="formInput" (submit)="sumbit()">
+      <div class="row d-block m-1">
+        <!-- Name -->
+        <div class="m-2">
+          <h6 style="text-align-last: left;">Name Product:</h6>
+          <input formControlName="name" [class.is-valid]="name?.valid" [class.is-invalid]="!name?.valid&&!name?.untouched" type="text" class="form-control" placeholder="Name">
+          <div [hidden]="name?.untouched||name?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{name?.errors?.['required']?"Must Enter Value":""}}</small>
+          </div>
+        </div>
+        <!-- Price -->
+        <div class="m-2">
+          <h6 style="text-align-last: left;">Price:</h6>
+          <input formControlName="price" [min]="1" [class.is-valid]="price?.valid" [class.is-invalid]="!price?.valid&&!price?.untouched" type="number" class="form-control" placeholder="Price">
+          <div [hidden]="price?.untouched||price?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{price?.errors?.['required']?"Must Enter Value":""}}</small>
+            <small id="emailHelp" class="form-text text-muted ">{{price?.errors?.['pattern']?"Error In Value":""}}</small>
+          </div>
+        </div>
+        <!-- minimumQuantity -->
+        <div class="m-2">
+          <h6 style="text-align-last: left;">minimum Quantity:</h6>
+          <input formControlName="minimumQuantity" [min]="1" [class.is-valid]="minimumQuantity?.valid" [class.is-invalid]="!minimumQuantity?.valid&&!minimumQuantity?.untouched" type="number" class="form-control" placeholder="minimum Quantity">
+          <div [hidden]="minimumQuantity?.untouched||minimumQuantity?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{minimumQuantity?.errors?.['required']?"Must Enter Value":""}}</small>
+          </div>
+        </div>
+        <!-- discount_Rate -->
+        <div class="m-2">
+          <h6 style="text-align-last: left;">discount Rate:</h6>
+          <input formControlName="discount_Rate" [min]="0" [class.is-valid]="discount_Rate?.valid" [class.is-invalid]="!discount_Rate?.valid&&!discount_Rate?.untouched" type="number" class="form-control" placeholder="discount Rate">
+          <div [hidden]="discount_Rate?.untouched||discount_Rate?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{discount_Rate?.errors?.['required']?"Must Enter Value":""}}</small>
+          </div>
+        </div>
+        <!-- Type -->
+        <div class="col m-2 p-2">
+          <h6 style="text-align-last: left;">Category:</h6>
+          <select  class="form-select form-select-lg" [class.is-valid]="categoryId?.valid" formControlName="categoryId" placeholder="categoryId">
+            <option *ngFor="let i of lsCategory" value="{{i.categoryId}}">{{i.name}}</option>
+          </select>
+          <div [hidden]="categoryId?.untouched||categoryId?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{categoryId?.errors?.['required']?"Must Select Value":""}}</small>
+          </div>
+        </div>
+        <!-- Decrption -->
+        <div class="m-2">
+          <h6 style="text-align-last: left;">Description :</h6>
+          <textarea style="resize: none;" rows="8" cols="16" formControlName="description" [class.is-valid]="description?.valid" [class.is-invalid]="!description?.valid&&!description?.untouched" class="form-control" placeholder="description"></textarea>
+          <div [hidden]="description?.untouched||description?.valid" class="alert alert-danger text-center m-1">
+            <small id="emailHelp" class="form-text text-muted ">{{description?.errors?.['required']?"Must Enter Value":""}}</small>
+          </div>
+        </div>
+        <h1 class="p-2">Upload Icon Product</h1>
+        <div class="mb-3 d-flex">
+          <label for="ImgUser" class="btn btn-img">Upload Imgae</label>
+          <div style="display:grid;"  [hidden]="!IconSrc">
+            <img src="{{IconSrc}}"  style="margin-left: 5px;" height="250px" width="250px" >
+            <!-- <button style="width: inherit;" (click)="DelteImg()" type="button" class="btn btn-danger">Delete</button> -->
+          </div>
+          <input type="file" (change)="HandelFile($event)"  class="form-control " hidden accept='image/*' name="" id="ImgUser" placeholder="Upload Photo" aria-describedby="fileHelpId">
+        </div>
+        <h6 style="color: red;" [hidden]="!ErrIcon">Error:Product Icon</h6>
+        <hr>
+        <!-- Img Product -->
+        <h1 class="p-2">Upload Other Image Product min Image (1)</h1>
+        <div class="mb-3 d-flex">
+          <label for="ImgProducts" class="btn btn-img">Upload Imgae</label>
+          <div style="display: -webkit-inline-flex; overflow-y: hidden; overflow-x: auto;">
+            <ng-container *ngFor="let sr of ProductImgSrc;let i =index" >
+              <div class="d-grid p-2" >
+              <img src="{{sr}}"  style="margin-left: 5px;" height="250px" width="250px" >
+             <button style="width: inherit;" (click)="DelteImg(i)" type="button" class="btn btn-danger">Delete</button>
+             </div>
+          </ng-container>
+        </div>
+          <input type="file" (change)="HandelProductFiles($event)"  multiple  class="form-control " hidden accept='image/*' name="" id="ImgProducts" placeholder="Upload Photo" aria-describedby="fileHelpId">
+        </div>
+        <h6 [hidden]="!ErrProductImgae" style="color: red;">Error:Must 1 Image</h6>
+
+
+        <div class="alert alert-danger" [hidden]="!result.error"  role="alert">
+          {{result.message}}
+        </div>
+
+        <div class="text-center m-3 d-block">
+          <button [disabled]="!(this.formInput.valid&&this.ErrIcon==false&&this.ErrProductImgae==false)" class="btn btn-primary" type="submit">Save Product</button>
+          <br>
+          <div [hidden]="!loggindBol" class="spinner-border text-warning text-center" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

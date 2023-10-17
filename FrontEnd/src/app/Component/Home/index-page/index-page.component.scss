@@ -1,0 +1,32 @@
+.indexBackGround
+{
+  width: 100%;
+  padding: 5%;
+  height: 720px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.textBlock{
+  padding-top: 33%;
+}
+.textBlock h1{
+  color: #ffb100;
+}
+.textBlock h3{
+  color: white;
+}
+
+.TextMainPage
+{
+  height: 480px;
+  padding: 30%;
+  width: 100%;
+  background-color: #ffb100;
+}
+.TextMainPage .btn
+{
+  font-size: x-large;
+  color: white;
+}
